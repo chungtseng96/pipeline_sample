@@ -6,7 +6,7 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install apache-beam[gcp] && python test_app.py -v'
+  - 'pip install apache-beam[gcp]'
 
 # This step builds the container image.
 - name: 'gcr.io/lunar-airport-298818/docker' 
