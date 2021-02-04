@@ -1,0 +1,27 @@
+#  Cloud Build to automatically run a small unit test, build the container image, and then push it to Container Registry. Pushing a new commit to Cloud Source Repositories automatically triggers this pipeline.
+steps:
+# This step runs the unit tests on the app
+- name: 'python:3.7'
+  id: Test
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - 'pip install apache-beam[gcp] && python test_app.py -v'
+
+# This step builds the container image.
+- name: 'gcr.io/lunar-airport-298818/docker' 
+  id: Build
+  args:
+  - 'build'
+  - '-t'
+  - 'gcr.io/lunar-airport-298818/apache_beam'
+  - '.'
+
+# This step pushes the image to Container Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+- name: 'gcr.io/lunar-airport-298818/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'gcr.io/lunar-airport-298818/apache_beam'
