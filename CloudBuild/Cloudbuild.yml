@@ -16,7 +16,7 @@ steps:
   - '-t'
   - 'gcr.io/lunar-airport-298818/apache_beam'
   - '-f'
-  - '/Dockerfile docker'
+  - '/Dockerfile'
   - '.'
 
 # This step pushes the image to Container Registry
